@@ -17,17 +17,12 @@ while True:
     connection, client_address = sock.accept()
     print(f"connection from {client_address}")
 
-    # Receive file
-    file_name = 'received_file'
-    with open(file_name, 'wb') as f:
-        while True:
-            data = connection.recv(1024)
-            
-            if not data:
-                break
-            # Write data to a file
-            f.write(data)
-    f.close()
+    file_name = connection.recv(1024)
+    print(file_name.decode())
+
+    with open(file_name.decode(), 'rb') as file:
+        connection.sendfile(file, 0)
+    file.close()
 
     # Clean up the connection
     connection.close()
