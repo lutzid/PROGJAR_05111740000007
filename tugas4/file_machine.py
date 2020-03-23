@@ -10,27 +10,22 @@ COMMAND spasi PARAMETER spasi PARAMETER ...
 
 FITUR
 
-- create : untuk membuat record
-  request : create
-  parameter : nama spasi notelpon
+- put : untuk upload file
+  request : put
+  parameter : filename
   response : berhasil -> ok
              gagal -> error
 
-- delete : untuk menghapus record
-  request: delete
-  parameter : id
+- download : untuk download file
+  request: download
+  parameter : filename
   response: berhasil -> OK
             gagal -> ERROR
 
-- list : untuk melihat daftar record
+- list : untuk melihat daftar file yang telah diupload
   request: list
   parameter: tidak ada
-  response: daftar record person yang ada
-
-- get : untuk mencari record berdasar nama
-  request: get 
-  parameter: nama yang dicari
-  response: record yang dicari dalam bentuk json format
+  response: list file yang telah diupload
 
 - jika command tidak dikenali akan merespon dengan ERRCMD
 
