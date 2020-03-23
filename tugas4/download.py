@@ -19,15 +19,15 @@ try:
     sock.send(request)
     data = sock.recv(1024)
     
-    temp_file = (b"")
+    temp_data = (b"")
     while True:
-        temp_file = temp_file + data
+        temp_data = temp_data + data
         if sys.getsizeof(data) != 1057:
             break
         else :
             data = sock.recv(1024)
-    temp_file = base64.b64decode(temp_file)
-    f.write(temp_file)
+    temp_data = base64.b64decode(temp_data)
+    f.write(temp_data)
     f.close()
 finally:
     print("closing")
