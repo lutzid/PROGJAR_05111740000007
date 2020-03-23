@@ -2,7 +2,7 @@
 ## Dokumentasi Protokol
 
 ## Format Protokol
-'''
+```
 PROTOCOL FORMAT
 
 string terbagi menjadi 2 bagian, dipisahkan oleh spasi
@@ -29,11 +29,11 @@ FITUR
 
 - jika command tidak dikenali akan merespon dengan ERRCMD
 
-'''
+```
 
 ## Menjalankan Server untuk menerima request dari client dan memberikan respon kepada client 
 * Pertama, jalankan server.py kemudian jalankan masing-masing client
-#
+
 ## Mengupload File
 
 * Upload file upload.py dengan cara menjalankan upload.py sebagai berikut
@@ -46,7 +46,7 @@ FITUR
 * Maka file upload.py akan terupload ke direktori 'file_database' sebagai berikut
 
 ![alt text](dokumentasi/setelah_run_upload.png)
-#
+
 ## Mendownload File
 * Mendownload file test.txt dengan cara menjalankan download.py sebagai berikut
 
@@ -58,7 +58,7 @@ FITUR
 
 ![alt text](dokumentasi/setelah_run_download.png)
 
-#
+
 ## Melihat list file yang terdapat di direktori 'file_database'
 * Melihat list file yang terdapat di direktori 'file_database' dalam format JSON dengan cara menjalankan list.py sebagai berikut
 
