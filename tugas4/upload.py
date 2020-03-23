@@ -16,7 +16,7 @@ try:
     try:
         f = open(filename, 'rb')
     except:
-        print("cannot open file")
+        print("File Can't Be Open")
     else:
         file_content = base64.b64encode(f.read())
         f.close()
@@ -30,7 +30,6 @@ try:
             sock.send(request)
             request = f.read(1024)
             response = sock.recv(1024)
-        print(response)
         f.close()
         os.remove("temp")
 finally:

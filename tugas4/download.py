@@ -17,8 +17,9 @@ try:
 
     request = command.encode() + filename.encode()
     sock.send(request)
+    print("Request has been sent")
+
     data = sock.recv(1024)
-    
     temp_data = (b"")
     while True:
         temp_data = temp_data + data
