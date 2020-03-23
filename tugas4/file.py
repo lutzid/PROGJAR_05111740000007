@@ -18,10 +18,9 @@ class File:
         temp = []
         # path = os.path.dirname(os.path.abspath(__file__))
         f = open('file_database/' + filename, "rb")
-        hasil = f.read()
-        l = f.read()
+        file_content = f.read()
         f.close()
-        hasil = base64.b64encode(l)
+        hasil = base64.b64encode(file_content)
         temp.append(hasil.decode())
         return temp
     def list_files(self):

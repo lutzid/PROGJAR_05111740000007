@@ -54,7 +54,6 @@ class FileMachine:
             elif (command == 'download'):
                 logging.warning("download")
                 filename = cstring[1].strip()
-                print(filename)
                 hasil = f.download(filename)
                 return hasil[0]
             elif (command == 'list'):
@@ -72,5 +71,5 @@ if __name__=='__main__':
     pm = FileMachine()
     hasil = pm.proses("list")
     print(hasil)
-    hasil = pm.proses("put test.txt")
+    hasil = pm.proses("download test.py")
     print(hasil)
