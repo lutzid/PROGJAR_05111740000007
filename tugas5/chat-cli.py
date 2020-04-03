@@ -17,19 +17,19 @@ class ChatClient:
         try:
             command=j[0].strip()
             if (command=='auth'):
-            username=j[1].strip()
-            password=j[2].strip()
-            return self.login(username,password)
+                username=j[1].strip()
+                password=j[2].strip()
+                return self.login(username,password)
             elif (command=='send'):
-            usernameto = j[1].strip()
-                    message=""
-                    for w in j[2:]:
+                usernameto = j[1].strip()
+                message=""
+                for w in j[2:]:
                     message="{} {}" . format(message,w)
-            return self.sendmessage(usernameto,message)
-                elif (command=='inbox'):
+                return self.sendmessage(usernameto,message)
+            elif (command=='inbox'):
                     return self.inbox()
             else:
-            return "*Maaf, command tidak benar"
+                return "*Maaf, command tidak benar"
         except IndexError:
             return "-Maaf, command tidak benar"
     def sendstring(self,string):
@@ -76,6 +76,6 @@ class ChatClient:
 if __name__=="__main__":
     cc = ChatClient()
     while True:
-        cmdline = raw_input("Command {}:" . format(cc.tokenid))
-        print cc.proses(cmdline)
+        cmdline = input("Command {}:" . format(cc.tokenid))
+        print(cc.proses(cmdline))
 
