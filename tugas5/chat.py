@@ -12,28 +12,32 @@ class Chat:
 		self.users['henderson']={ 'nama': 'Jordan Henderson', 'negara': 'Inggris', 'password': 'surabaya', 'incoming': {}, 'outgoing': {}}
 		self.users['lineker']={ 'nama': 'Gary Lineker', 'negara': 'Inggris', 'password': 'surabaya','incoming': {}, 'outgoing':{}}
 	def proses(self,data):
-		j=data.split(" ")
+		j = data.split(" ")
 		try:
-			command=j[0].strip()
-			if (command=='auth'):
-				username=j[1].strip()
-				password=j[2].strip()
+			command = j[0].strip()
+			if (command == 'auth'):
+				username = j[1].strip()
+				password = j[2].strip() 
 				print("auth {}" . format(username))
 				return self.autentikasi_user(username,password)
-			elif (command=='send'):
+			elif (command == 'send'):
 				sessionid = j[1].strip()
 				usernameto = j[2].strip()
 				message=""
 				for w in j[3:]:
-					message="{} {}" . format(message,w)
+					message = "{} {}" . format(message,w)
 				usernamefrom = self.sessions[sessionid]['username']
 				print("send message from {} to {}" . format(usernamefrom,usernameto))
 				return self.send_message(sessionid,usernamefrom,usernameto,message)
-			elif (command=='inbox'):
+			elif (command == 'inbox'):
 				sessionid = j[1].strip()
 				username = self.sessions[sessionid]['username']
 				print("inbox {}" . format(sessionid))
 				return self.get_inbox(username)
+			elif (command == 'show_actives'):
+				sessionid = j[1].strip()
+				username = self.sessions[sessionid]['username']
+				return self.get_actives(username)
 			else:
 				return {'status': 'ERROR', 'message': '**Protocol Tidak Benar'}
 		except IndexError:
@@ -41,10 +45,10 @@ class Chat:
 	def autentikasi_user(self,username,password):
 		if (username not in self.users):
 			return { 'status': 'ERROR', 'message': 'User Tidak Ada' }
-		if (self.users[username]['password']!= password):
+		if (self.users[username]['password'] != password):
 			return { 'status': 'ERROR', 'message': 'Password Salah' }
 		tokenid = str(uuid.uuid4()) 
-		self.sessions[tokenid]={ 'username': username, 'userdetail':self.users[username]}
+		self.sessions[tokenid] = { 'username': username, 'userdetail':self.users[username]}
 		return { 'status': 'OK', 'tokenid': tokenid }
 	def get_user(self,username):
 		if (username not in self.users):
@@ -77,14 +81,22 @@ class Chat:
 	def get_inbox(self,username):
 		s_fr = self.get_user(username)
 		incoming = s_fr['incoming']
-		msgs={}
+		msgs = {}
 		for users in incoming:
-			msgs[users]=[]
+			msgs[users] = []
 			while not incoming[users].empty():
 				msgs[users].append(s_fr['incoming'][users].get_nowait())
 			
 		return {'status': 'OK', 'messages': msgs}
 
+	def get_actives(self, username):
+		msgs=[]
+		for users in self.users:
+			if users == username:
+				pass
+			else:
+				msgs.append(users)
+		return {'status': 'OK', 'messages': msgs}
 
 if __name__=="__main__":
 	j = Chat()

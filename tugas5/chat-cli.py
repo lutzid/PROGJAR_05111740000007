@@ -11,66 +11,90 @@ class ChatClient:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_address = (TARGET_IP,TARGET_PORT)
         self.sock.connect(self.server_address)
-        self.tokenid=""
+        self.tokenid = ""
     def proses(self,cmdline):
-        j=cmdline.split(" ")
+        j = cmdline.split(" ")
         try:
-            command=j[0].strip()
-            if (command=='auth'):
-                username=j[1].strip()
-                password=j[2].strip()
+            command = j[0].strip()
+            if (command == 'auth'):
+                username = j[1].strip()
+                password = j[2].strip()
                 return self.login(username,password)
-            elif (command=='send'):
+            elif (command == 'send'):
                 usernameto = j[1].strip()
-                message=""
+                message = ""
                 for w in j[2:]:
-                    message="{} {}" . format(message,w)
+                    message = "{} {}" . format(message,w)
                 return self.sendmessage(usernameto,message)
-            elif (command=='inbox'):
-                    return self.inbox()
+            elif (command == 'inbox'):
+                return self.inbox()
+            elif (command == 'show_actives'):
+                return self.show_actives()
+            elif (command == 'logout'):
+                return self.logout()
             else:
                 return "*Maaf, command tidak benar"
         except IndexError:
             return "-Maaf, command tidak benar"
+        
     def sendstring(self,string):
         try:
-            self.sock.sendall(string)
+            self.sock.sendall(string.encode())
             receivemsg = ""
             while True:
-                data = self.sock.recv(10)
+                data = self.sock.recv(64)
                 if (data):
-                    receivemsg = "{}{}" . format(receivemsg,data)
-                    if receivemsg[-4:]=="\r\n\r\n":
+                    receivemsg = "{}{}" . format(receivemsg,data.decode())
+                    if receivemsg[-4:] == "\r\n\r\n":
                         return json.loads(receivemsg)
         except:
             self.sock.close()
+            
     def login(self,username,password):
-        string="auth {} {} \r\n" . format(username,password)
+        string = "auth {} {} \r\n" . format(username,password)
         result = self.sendstring(string)
-        if result['status']=='OK':
-            self.tokenid=result['tokenid']
+        if result['status'] == 'OK':
+            self.tokenid = result['tokenid']
             return "username {} logged in, token {} " .format(username,self.tokenid)
         else:
             return "Error, {}" . format(result['message'])
+        
     def sendmessage(self,usernameto="xxx",message="xxx"):
-        if (self.tokenid==""):
+        if (self.tokenid == ""):
             return "Error, not authorized"
-        string="send {} {} {} \r\n" . format(self.tokenid,usernameto,message)
+        string = "send {} {} {} \r\n" . format(self.tokenid,usernameto,message)
         result = self.sendstring(string)
-        if result['status']=='OK':
+        if result['status'] == 'OK':
             return "message sent to {}" . format(usernameto)
         else:
             return "Error, {}" . format(result['message'])
+        
     def inbox(self):
-        if (self.tokenid==""):
+        if (self.tokenid == ""):
             return "Error, not authorized"
         string="inbox {} \r\n" . format(self.tokenid)
         result = self.sendstring(string)
-        if result['status']=='OK':
+        if result['status'] == 'OK':
             return "{}" . format(json.dumps(result['messages']))
         else:
             return "Error, {}" . format(result['message'])
 
+    def show_actives(self):
+        if (self.tokenid == ""):
+            return "Error, not authorized"
+        string = "show_actives {} \r\n".format(self.tokenid)
+        result = self.sendstring(string)
+        if result['status'] == 'OK':
+            return "{}" . format(json.dumps(result['messages']))
+        else:
+            return "Error, {}" . format(result['message'])
+
+    def logout(self):
+        if(self.tokenid == ""):
+            return "Error, not authorized"
+        else:
+            self.tokenid = ""
+            return "Logout Successful"
 
 
 if __name__=="__main__":
