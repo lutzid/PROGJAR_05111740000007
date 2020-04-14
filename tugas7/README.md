@@ -30,3 +30,4 @@
 
 * Muncul error selain concurrency level 1
 ![alt text](dokumentasi/10_5.png)
+![alt text](dokumentasi/concurren.png)
