@@ -28,20 +28,20 @@
 
 ### Screenshot Benchmark
 * server_async_http.py
-![alt text](dokumentasi/async_1.png)
-![alt text](dokumentasi/async_5.png)
-![alt text](dokumentasi/async_10.png)
-![alt text](dokumentasi/async_30.png)
-![alt text](dokumentasi/async_50.png)
-![alt text](dokumentasi/async_75.png)
-![alt text](dokumentasi/async_100.png)
+![alt text](dokumentasi/async_1.jpg)
+![alt text](dokumentasi/async_5.jpg)
+![alt text](dokumentasi/async_10.jpg)
+![alt text](dokumentasi/async_30.jpg)
+![alt text](dokumentasi/async_50.jpg)
+![alt text](dokumentasi/async_75.jpg)
+![alt text](dokumentasi/async_100.jpg)
 
 
 * server_thread_http.py
-![alt text](dokumentasi/thread_1.png)
-![alt text](dokumentasi/thread_5.png)
-![alt text](dokumentasi/thread_10.png)
-![alt text](dokumentasi/thread_30.png)
-![alt text](dokumentasi/thread_50.png)
-![alt text](dokumentasi/thread_75.png)
-![alt text](dokumentasi/thread_100.png)
+![alt text](dokumentasi/thread_1.jpg)
+![alt text](dokumentasi/thread_5.jpg)
+![alt text](dokumentasi/thread_10.jpg)
+![alt text](dokumentasi/thread_30.jpg)
+![alt text](dokumentasi/thread_50.jpg)
+![alt text](dokumentasi/thread_75.jpg)
+![alt text](dokumentasi/thread_100.jpg)
